@@ -29,8 +29,8 @@ SET ROLE recipe_box_app;
 CREATE TABLE recipes(
     id SERIAL PRIMARY KEY, 
     title VARCHAR(200) NOT NULL,
-    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -55,9 +55,8 @@ CREATE TABLE instructions(
     id SERIAL, 
     specification TEXT NOT NULL,
     list_order INTEGER NOT NULL,
-    recipe_id INTEGER NOT NULL,
-    PRIMARY KEY(id),
-    FOREIGN KEY(recipe_id)
+    recipe_id INTEGER NOT NULL REFERENCES recipes(id),
+    PRIMARY KEY(id)
 );
 
 
@@ -76,7 +75,7 @@ CREATE TABLE instructions(
 
 -- YOUR CODE HERE
 
-CREATE TABLE unit_of_measure_id(
+CREATE TABLE units_of_measure(
     id SERIAL,
     name VARCHAR(20) NOT NULL,
     PRIMARY KEY(id)
@@ -104,9 +103,9 @@ CREATE TABLE unit_of_measure_id(
 CREATE TABLE ingredients(
     id SERIAL PRIMARY KEY, 
     amount NUMERIC(5, 2) NOT NULL,
-    unit_of_measure_id INTEGER FOREIGN KEY NOT NULL,
+    unit_of_measure_id INTEGER NOT NULL REFERENCES units_of_measure(id),
     food_stuff VARCHAR(500) NOT NULL,
-    recipe_id INTEGER FOREIGN KEY NOT NULL
+    recipe_id INTEGER NOT NULL REFERENCES recipes(id)
 );
 
 
