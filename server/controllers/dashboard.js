@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
   try {
     const sql = await getSqlFile(sqlFileName);
     if (sql.length === 0) {
-      recipes = { error: `No SQL in ${sqlFileName}`};
+      recipes = { error: `No SQL in ${sqlFileName}` };
     } else {
       ({ rows } = await pool.query(sql));
       if (rows.length) {
@@ -22,10 +22,12 @@ router.get('/', async (req, res) => {
         }
       }
       if (recipes === undefined) {
-        recipes = {recipes: rows.map(x => {
-          x.updated = moment(x.updated).fromNow();
-          return x;
-        })};
+        recipes = {
+          recipes: rows.map(x => {
+            x.updated = moment(x.updated).fromNow();
+            return x;
+          })
+        };
         if (rows.length > 10) {
           recipes = { error: `SQL in ${sqlFileName} returned more than 10 records.` };
         }

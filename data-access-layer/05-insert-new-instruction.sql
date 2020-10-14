@@ -43,3 +43,22 @@
 
 
 -- YOUR CODE HERE
+-- INSERT INTO instructions(list_order, specification, recipe_id)
+-- VALUES
+-- ((SELECT COALESCE(MAX(list_order), 0)
+-- FROM instructions
+-- WHERE recipe_id = $2), $1, $2) + 1;
+
+INSERT INTO instructions (list_order, specification, recipe_id)
+values
+(
+   (SELECT COALESCE(MAX(list_order), 0) + 1 FROM instructions WHERE recipe_id = $2),
+   $1,
+   $2
+);
+
+-- You need to get the maximum value of "list_order" for the instructions
+-- associated with the recipe and add 1 to it to get the next value for
+-- "list_order". That means you'll have a subquery that uses the MAX function
+-- to get the current maximum value of list_order where the recipe_id is equal
+-- to $2.

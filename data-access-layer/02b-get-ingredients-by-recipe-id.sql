@@ -39,3 +39,14 @@
 
 
 -- YOUR CODE HERE
+SELECT amount, food_stuff, name
+FROM ingredients
+JOIN units_of_measure ON (ingredients.unit_of_measure_id = units_of_measure.id)
+WHERE ingredients.recipe_id = $1;
+
+-- JOIN «other table» ON («one of the relationship columns» = «other relationship column»)
+-- WHERE ... (here you'll use the $1 parameter)
+
+-- It needs to include a single positional parameter $1 in the WHERE clause so
+-- that it gets the ingredients with the provided recipe id that will be
+-- provided at run time.
