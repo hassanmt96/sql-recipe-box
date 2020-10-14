@@ -21,4 +21,4 @@
 -- YOUR CODE HERE
 SELECT list_order, specification
 FROM instructions
-WHERE ID = $1;
+WHERE recipe_id = $1;
